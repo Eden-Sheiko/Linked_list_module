@@ -42,7 +42,8 @@ list_module_error_t delete_node_end(list_module_t* list);
 
 list_module_error_t delete_node_begin(list_module_t* list);
 
-//find loop
+list_module_error_t find_loop(list_module_t* list);
+
 //remove loop
 
 list_module_error_t destroy_list(list_module_t* list);

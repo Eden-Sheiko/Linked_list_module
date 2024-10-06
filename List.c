@@ -107,9 +107,21 @@ list_module_error_t destroy_list(list_module_t* list) {
     return LIST_MODULE_ERROR_OK;
 }
 list_module_error_t delete_node(list_module_t* list) {
+    list_module_t* p_list = list;
+    list_module_t* p_list_next = p_list->next;
     if (list->next == NULL) {
+        destroy_list(list);
         return LIST_MODULE_EMPTY;
     }
+    //TODO: check dummy node
+    p_list->data = p_list_next->data;
+    p_list->next = p_list_next->next;
+    free(p_list_next);
+    return LIST_MODULE_ERROR_OK;
+}
+list_module_error_t find_loop(list_module_t* list) {
+    list_module_t* slow_ptr = list;
+    list_module_t* fast_ptr = list;
 
 
 }

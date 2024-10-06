@@ -12,8 +12,10 @@ int main(void){
     print_list(ptr);
     printf("size %zu\n",list_size(ptr));
     printf("is empty? %d\n",is_list_empty(ptr));
-    destroy_list(ptr);
+    delete_node(ptr);
+    printf("size %zu\n",list_size(ptr));
     print_list(ptr);
+    destroy_list(ptr);
 
 
 
