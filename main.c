@@ -14,11 +14,9 @@ int main(void){
     printf("is empty? %d\n",is_list_empty(ptr));
     delete_node(ptr);
     printf("size %zu\n",list_size(ptr));
+    printf("is loop? %d\n",find_loop(ptr));
     print_list(ptr);
     destroy_list(ptr);
-
-
-
 
 
     return 0;

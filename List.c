@@ -108,22 +108,31 @@ list_module_error_t destroy_list(list_module_t* list) {
 }
 list_module_error_t delete_node(list_module_t* list) {
     list_module_t* p_list = list;
-    list_module_t* p_list_next = p_list->next;
-    if (list->next == NULL) {
-        destroy_list(list);
-        return LIST_MODULE_EMPTY;
+    if (p_list == NULL) {
+        return LIST_MODULE_NULL_ERROR;
     }
-    //TODO: check dummy node
-    p_list->data = p_list_next->data;
-    p_list->next = p_list_next->next;
-    free(p_list_next);
+    if (p_list->next == NULL) {
+        free(list);
+        return LIST_MODULE_ERROR_OK;
+    }
+    /* take care of dummy head 0XFFFF */
+    if (p_list->data == (uint16_t*)0xFFFF) {
+
+    }
+
     return LIST_MODULE_ERROR_OK;
 }
 list_module_error_t find_loop(list_module_t* list) {
     list_module_t* slow_ptr = list;
     list_module_t* fast_ptr = list;
-
-
+    while (slow_ptr != NULL && fast_ptr->next != NULL) {
+        if (slow_ptr == fast_ptr) {
+            return LIST_MODULE_ERROR_OK;
+        }
+        slow_ptr = slow_ptr->next;
+        fast_ptr = fast_ptr->next->next;
+    }
+    return LIST_MODULE_NO_MATCH;
 }
 
 

@@ -21,6 +21,8 @@ typedef enum list_module_error_e {
     LIST_MODULE_ERROR_OK = 0,
     LIST_MODULE_EMPTY,
     LIST_MODULE_ALLOC_ERROR,
+    LIST_MODULE_NO_MATCH,
+    LIST_MODULE_NULL_ERROR,
 
 }list_module_error_t;
 
@@ -43,6 +45,8 @@ list_module_error_t delete_node_end(list_module_t* list);
 list_module_error_t delete_node_begin(list_module_t* list);
 
 list_module_error_t find_loop(list_module_t* list);
+
+//removed loop rec
 
 //remove loop
 
