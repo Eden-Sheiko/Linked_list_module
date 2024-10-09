@@ -18,6 +18,9 @@ int main(void){
     print_list(ptr);
     destroy_list(ptr);
 
+    ptr = init_list_no_dummy(5);
+    print_list(ptr);
+
 
     return 0;
 }

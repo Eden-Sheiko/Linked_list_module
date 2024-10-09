@@ -28,6 +28,8 @@ typedef enum list_module_error_e {
 
 list_module_t* init_list();
 
+list_module_t* init_list_no_dummy(void* val);
+
 list_module_error_t print_list(list_module_t* list);
 
 list_module_error_t insert_node_end(list_module_t* list, void* val);

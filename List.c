@@ -24,6 +24,16 @@ bool is_list_empty(list_module_t* list) {
     }
     return false;
 }
+list_module_t* init_list_no_dummy(void* val) {
+    list_module_t* list = calloc(1,sizeof(list_module_t));
+    if (list == NULL) {
+        return NULL;
+    }
+    list->data = val;
+    list->next = NULL;
+    return list;
+}
+
 
 list_module_error_t print_list(list_module_t* list) {
     list_module_t* p_list = list;
@@ -116,7 +126,11 @@ list_module_error_t delete_node(list_module_t* list) {
         return LIST_MODULE_ERROR_OK;
     }
     /* take care of dummy head 0XFFFF */
-    if (p_list->data == (uint16_t*)0xFFFF) {
+    if (p_list->data == (uint16_t*)0xFFFF && list_size(p_list) >= 2) {
+        p_list = p_list->next;
+
+        list->next = p_list;
+
 
     }
 
