@@ -93,6 +93,7 @@ list_module_error_t insert_node_end(list_module_t* list, void* val) {
     }
     return LIST_MODULE_ERROR_OK;
 }
+//todo: fix bug
 list_module_error_t insert_node_middle(list_module_t* list, void* val) {
     list_module_t* p_list = list;
     list_module_t* new_node = calloc(1,sizeof(list_module_t));
@@ -127,13 +128,16 @@ list_module_error_t delete_node(list_module_t* list) {
     }
     /* take care of dummy head 0XFFFF */
     if (p_list->data == (uint16_t*)0xFFFF && list_size(p_list) >= 2) {
-        p_list = p_list->next;
-
+        list_module_t* tmp_list = list->next;
+        p_list=p_list->next->next;
         list->next = p_list;
-
-
+        free(tmp_list);
+        return LIST_MODULE_ERROR_OK;
     }
-
+    /* add case 1 size node , and return empty list with dummy */
+    p_list = p_list->next;
+    list->next = NULL;
+    free(p_list);
     return LIST_MODULE_ERROR_OK;
 }
 list_module_error_t find_loop(list_module_t* list) {
@@ -147,6 +151,70 @@ list_module_error_t find_loop(list_module_t* list) {
         fast_ptr = fast_ptr->next->next;
     }
     return LIST_MODULE_NO_MATCH;
+}
+list_module_error_t delete_node_end(list_module_t* list){
+    list_module_t* p_list = list;
+    list_module_t* p_list_next = list;
+
+    if (p_list == NULL){
+        return LIST_MODULE_NULL_ERROR;
+    }
+    if (p_list->next == NULL){
+        return LIST_MODULE_EMPTY;
+    }
+    if (list_size(p_list) == 1){
+        p_list = p_list->next;
+        free(p_list);
+        list->next = NULL;
+        return LIST_MODULE_ERROR_OK;
+    }
+    while (p_list->next->next != NULL){
+        p_list = p_list->next;
+    }
+    p_list_next = p_list->next;
+    free(p_list_next);
+    p_list->next = NULL;
+    return LIST_MODULE_ERROR_OK;
+}
+list_module_error_t delete_node_begin(list_module_t* list){
+    list_module_t* p_list = list;
+    if (p_list == NULL){
+        return LIST_MODULE_NULL_ERROR;
+    }
+    if (p_list->next == NULL){
+        return LIST_MODULE_EMPTY;
+    }
+
+    return LIST_MODULE_ERROR_OK;
+}
+//todo: fix
+list_module_t* flip_list(list_module_t* list){
+    list_module_t* prev = NULL;
+    list_module_t* curr = list;
+    list_module_t* next = NULL;
+
+    while (curr != NULL){
+        next = curr->next;
+        curr->next = prev;
+
+
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+list_module_error_t print_list_rec(list_module_t* list) {
+    if (list == NULL) {
+        printf(" NULL");
+        return;
+    }
+    printf("%d -> ",list->data);
+    print_list_rec(list->next);
+}
+
+list_module_t* flip_list_rec(list_module_t* list) {
+
 }
 
 

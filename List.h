@@ -28,8 +28,6 @@ typedef enum list_module_error_e {
 
 list_module_t* init_list();
 
-list_module_t* init_list_no_dummy(void* val);
-
 list_module_error_t print_list(list_module_t* list);
 
 list_module_error_t insert_node_end(list_module_t* list, void* val);
@@ -48,13 +46,16 @@ list_module_error_t delete_node_begin(list_module_t* list);
 
 list_module_error_t find_loop(list_module_t* list);
 
-//removed loop rec
+list_module_t* flip_list(list_module_t* list);
+
+list_module_error_t print_list_rec(list_module_t* list);
+
+list_module_t* flip_list_rec(list_module_t* list);
 
 //remove loop
 
 list_module_error_t destroy_list(list_module_t* list);
-// list_t* rev_list(list_t* list);
-// and recrisive
+
 size_t list_size(list_module_t* list);
 
 
