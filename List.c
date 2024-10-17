@@ -214,6 +214,15 @@ list_module_error_t print_list_rec(list_module_t* list) {
 }
 
 list_module_t* flip_list_rec(list_module_t* list) {
+    // Base case: if head is NULL or only one node, return head
+    if (list == NULL || list->next == NULL) {
+        return list;
+    }
+    list_module_t* new_head = flip_list_rec(list->next);
+    list->next->next = list;
+    list->next = NULL;
+
+    return new_head;
 
 }
 
